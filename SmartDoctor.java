@@ -13,6 +13,7 @@ public class SmartDoctor {
     static String patientName;
 	static ArrayList<String> list = new ArrayList<String>();
 	static Scanner reader = new Scanner(System.in);
+	static Scanner reader2 = new Scanner(System.in);
 	static String type;
 
     public static void main(String args[]) {
@@ -97,8 +98,7 @@ public class SmartDoctor {
 
     		System.out.println();
     		System.out.println("Enter patient's full name?");
-    		reader.nextLine();
-    		patientName = reader.nextLine();
+    		patientName = reader2.nextLine();
     		Scanner fileReader = new Scanner(new File(rootDir, patientName + ".txt"));
     		while(fileReader.hasNextLine()){
     			list.add(fileReader.nextLine());
