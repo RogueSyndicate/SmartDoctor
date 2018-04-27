@@ -28,6 +28,7 @@ public class WelcomeDoctor {
 	String insuranceGroupNumber;
 	String insurancePhoneNumber;
 	int allergyCount;
+	int medCount;
 
     
     public void welcomeScreen()
@@ -36,6 +37,7 @@ public class WelcomeDoctor {
     	try
     	{
 	    	ArrayList<String> allergyList = new ArrayList<String>();
+	    	ArrayList<String> medList = new ArrayList<String>();
 	    	String arlist;
 
 
@@ -143,27 +145,56 @@ public class WelcomeDoctor {
 		    	}
 	    	}
 
-	    	FileWriter writer = new FileWriter(newPatient.getPath());
-	    	String patientOutput = "Information\n{\n";
+	    	System.out.println("");
+	    	arlist = "";
+	    	System.out.print("How many different types of medications do you have? (Enter number): ");
+	    	medCount = reader.nextInt();
 
-	    	patientOutput += fullName + "\n" + address + ", " + city + " " + state + " " + zipCode + "\n" + 
-	    						phoneNumber + "\n" + socialSecurity + "\n" + gender + "\n" + birthDate + "\n" + 
-	    							email + "\n" + emergencyContactName + "\n" + emergencyPhoneNumber + "\n" + 
-	    								insuranceCompanyName + "\n" + insuranceIDNumber + "\n" + insuranceGroupNumber + "\n" + 
-	    									insurancePhoneNumber;
+	    	if(medCount != 0){
 
-			if(allergyCount != 0){
-				patientOutput += "\nAllergies: ";
-		    	for(int i = 0; i < allergyList.size(); i++){
+		    	for (int i = 1; i <= medCount; i++) {
+		    		
+		    		System.out.println("");
+		    		System.out.print("List your medications (" + i + "): ");
+		    		arlist = reader.next();
+		    		medList.add(arlist);
 
-		    		if(i == (allergyList.size() - 1))
-		    			patientOutput += allergyList.get(i) + ".";
-		    		else
-		    			patientOutput += allergyList.get(i) + ", ";
 		    	}
 	    	}
 
-	    	patientOutput += "\n}\n";
+	    	FileWriter writer = new FileWriter(newPatient.getPath());
+	    	String patientOutput = fullName + "'s Medical Information\n{\n";
+
+	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Address:\n" + address + ", " + city + " " + state + " " + zipCode + "\n" + 
+	    						"Phone Number:\n" + phoneNumber + "\n" + "SSN:\n" + socialSecurity + "\n" + "Gender:\n" + gender + "\n" + 
+	    							"Birthday:\n" + birthDate + "\n" + "Email:\n" + email + "\n" + "Emergency Contact:\n" + emergencyContactName + 
+	    								"\n" + "Emergency Contact Number:\n" + emergencyPhoneNumber + "\n" + "Insurance Comapany Name:\n" + 
+	    									insuranceCompanyName + "\n" + "Insurance ID:\n" + insuranceIDNumber + "\n" + "Insurance Group:\n" + 
+	    										insuranceGroupNumber + "\n" + "Insurance Phone Number:\n" + insurancePhoneNumber;
+
+			if(allergyCount != 0){
+				patientOutput += "\nAllergies:\n";
+		    	for(int i = 0; i < allergyList.size(); i++){
+
+		    		if(i == 0)
+		    			patientOutput += allergyList.get(i);
+		    		else
+		    			patientOutput += ", " + allergyList.get(i);
+		    	}
+	    	}
+
+	    	if(medCount != 0){
+				patientOutput += "\nMedications:\n";
+		    	for(int i = 0; i < medList.size(); i++){
+
+		    		if(i == 0)
+		    			patientOutput += medList.get(i);
+		    		else
+		    			patientOutput += ", " + medList.get(i);
+		    	}
+	    	}
+
+	    	patientOutput += "\n}";
             writer.write(patientOutput);
             writer.close();
 	    }

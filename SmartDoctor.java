@@ -19,7 +19,7 @@ public class SmartDoctor {
     public static void main(String args[]) {
         WelcomeDoctor startHere = new WelcomeDoctor();
         PillDoctor medInfo = new PillDoctor();
-        HistoryDoctor records = new HistoryDoctor();
+        HistoryDoctor pastInfo = new HistoryDoctor();
         int doctorCommand = -1;
         String patientName = "Blank";
 
@@ -30,7 +30,7 @@ public class SmartDoctor {
 
 		startHere.homeDirectory(rootDir);
 		medInfo.homeDirectory(rootDir);
-		//records.homeDirectory(rootDir);
+		pastInfo.homeDirectory(rootDir);
 
     	System.out.println("Hello! Welcome to Smart Doctor!");
 
@@ -51,7 +51,7 @@ public class SmartDoctor {
 	    	}
 	    	if(patientType.equals("existing") || patientType.equals("e"))
 	    	{
-	    		retrievePatientInfo();
+	    		retrievePatientInfo("P");
 	    	}
     	}
     	else
@@ -60,17 +60,17 @@ public class SmartDoctor {
 
     		while(true){
 		    	System.out.println();
-		    	System.out.println("1 - Look up a specific Patient's Info");
-		    	System.out.println();
+		    	System.out.println("1 - Pull up a specific Patient's Info");
+		    	System.out.println("2 - Prescribe meds to patient (Pull up patient info first)");
 		    	System.out.print("Doctor commands (Pick a number from the list above or -1 to quit): ");
 		    	doctorCommand = reader.nextInt();
 	    	
 
 		    	if(doctorCommand == 1){
-		    		retrievePatientInfo();
+		    		retrievePatientInfo("D");
 		    	}
 		    	else if(doctorCommand == 2){
-
+		    		medInfo.prescribeMeds(list);
 		    	}
 		    	else if(doctorCommand == -1){
 		    		break;
@@ -93,26 +93,31 @@ public class SmartDoctor {
 		rootDir = dir.getPath();
 	}
 
-	public static void retrievePatientInfo(){
+	public static void retrievePatientInfo(String type){
     	try{
 
     		System.out.println();
     		System.out.println("Enter patient's full name?");
     		patientName = reader2.nextLine();
-    		Scanner fileReader = new Scanner(new File(rootDir, patientName + ".txt"));
+    		Scanner fileReader = new Scanner(new File(rootDir, patientName + ".txt"));//Implement a check to make sure the patient file exists
     		while(fileReader.hasNextLine()){
     			list.add(fileReader.nextLine());
     		}
     		fileReader.close();
 
-    		for(int i = 0; i < list.size(); i++){
+    		if(type.equals("P"))
+	    		for(int i = 0; i < list.size(); i++){
 
-    			System.out.println("");
-	    		System.out.println(list.get(i));
-		    }
+	    			System.out.println("");
+		    		System.out.println(list.get(i));
+			    }
     	}
 	    catch(IOException e){
 	    	e.printStackTrace();
 	    }
+    }
+
+    public static void outputToFile(ArrayList<String> newInfo){
+
     }
 } 
