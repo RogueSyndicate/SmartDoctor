@@ -12,6 +12,7 @@ public class SmartDoctor {
 	static String patientType = "LOOP";
 	static String doctorType = "LOOP";
     static String patientName;
+    static String doctorName;
 	static ArrayList<String> list = new ArrayList<String>();
 	static Scanner reader = new Scanner(System.in);
 	static Scanner reader2 = new Scanner(System.in);
@@ -22,6 +23,7 @@ public class SmartDoctor {
         PillDoctor medInfo = new PillDoctor();
         HistoryDoctor pastInfo = new HistoryDoctor();
         int doctorCommand = -1;
+        int patientCommand = -1;
         String patientName = "Blank";
 
         File folder = new File(System.getProperty("user.home")); // results in /Users/Hemil
@@ -50,9 +52,35 @@ public class SmartDoctor {
 	    	if(patientType.equals("new") || patientType.equals("n")){
 	    		startHere.welcomeScreen();
 	    	}
-	    	if(patientType.equals("existing") || patientType.equals("e"))
-	    	{
-	    		retrievePatientInfo("P");
+
+	    	System.out.println();
+			System.out.println("Welcome to the Patient's Hub");
+
+	    	while(true){
+		    	System.out.println();
+		    	System.out.println("1 - View your medical info");
+		    	System.out.println("2 - See the previous doctor's you have seen");
+		    	System.out.println("3 - Choose a doctor to be your regular doctor");
+		    	System.out.println("4 - View your regular doctor's info");
+		    	System.out.print("Patient commands (Pick a number from the list above or -1 to quit): ");
+		    	patientCommand = reader.nextInt();
+	    	
+
+		    	if(patientCommand == 1){
+		    		retrievePatientInfo("P");
+		    	}
+		    	else if(patientCommand == 2){
+		    		pastInfo.pastDoctorsVisted(list);
+		    	}
+		    	else if(patientCommand == 3){
+		    		pastInfo.chooseDoctor(list);
+		    	}
+		    	else if(patientCommand == 4){
+		    		pastInfo.chosenDoctor(list);
+		    	}
+		    	else if(patientCommand == -1){
+		    		break;
+		    	}
 	    	}
     	}
     	else if (type.equals("doctor") || type.equals("d"))
@@ -73,29 +101,37 @@ public class SmartDoctor {
 
     		while(true){
 		    	System.out.println();
-		    	System.out.println("1 - Pull up a specific Patient's Info");
-		    	System.out.println("2 - Prescribe meds to patient (Pull up patient info first)");
-		    	System.out.println("3 - View current medications for patient (Pull up patient info first)");
-		    	System.out.println("4 - Add new allergies to patient file (Pull up patient info first)");
-		    	System.out.println("5 - View current allergies for patient (Pull up patient info first)");
+		    	System.out.println("1 - View a specific Patient's Info");
+		    	System.out.println("2 - Prescribe meds to patient");
+		    	System.out.println("3 - View current medications for patient");
+		    	System.out.println("4 - Add new allergies to patient file");
+		    	System.out.println("5 - View current allergies for patient");
+		    	System.out.println("6 - View your medical profile");
 		    	System.out.print("Doctor commands (Pick a number from the list above or -1 to quit): ");
 		    	doctorCommand = reader.nextInt();
 	    	
 
 		    	if(doctorCommand == 1){
-		    		retrievePatientInfo("D");
+		    		retrievePatientInfo("P");
 		    	}
 		    	else if(doctorCommand == 2){
+		    		retrievePatientInfo("D");
 		    		medInfo.prescribeMeds(list);
 		    	}
 		    	else if(doctorCommand == 3){
+		    		retrievePatientInfo("D");
 		    		medInfo.currentMeds(list);
 		    	}
 		    	else if(doctorCommand == 4){
+		    		retrievePatientInfo("D");
 		    		medInfo.addAllergies(list);
 		    	}
 		    	else if(doctorCommand == 5){
+		    		retrievePatientInfo("D");
 		    		medInfo.currentAllergies(list);
+		    	}
+		    	else if(doctorCommand == 6){
+		    		retrieveDoctorInfo();
 		    	}
 		    	else if(doctorCommand == -1){
 		    		break;
@@ -141,6 +177,30 @@ public class SmartDoctor {
 	    			System.out.println("");
 		    		System.out.println(list.get(i));
 			    }
+    	}
+	    catch(IOException e){
+	    	e.printStackTrace();
+	    }
+    }
+
+    public static void retrieveDoctorInfo(){
+    	try{
+
+    		System.out.println();
+    		System.out.println("Enter doctor's full name?");
+    		doctorName = reader2.nextLine();
+    		Scanner fileReader = new Scanner(new File(rootDir, doctorName + ".txt"));//Implement a check to make sure the patient file exists
+    		list = new ArrayList<String>();
+    		while(fileReader.hasNextLine()){
+    			list.add(fileReader.nextLine());
+    		}
+    		fileReader.close();
+
+    		for(int i = 0; i < list.size(); i++){
+
+    			System.out.println("");
+	    		System.out.println(list.get(i));
+			}
     	}
 	    catch(IOException e){
 	    	e.printStackTrace();

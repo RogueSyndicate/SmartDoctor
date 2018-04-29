@@ -11,6 +11,8 @@ public class WelcomeDoctor {
 
 	Scanner reader = new Scanner(System.in);
 	String fullName;
+	String previousDoctors;
+	String currentDoctor;
 	String address;
 	String city;
 	String state;
@@ -53,6 +55,10 @@ public class WelcomeDoctor {
 	    		newPatient.delete();
 
 	    	newPatient.createNewFile();
+
+	    	System.out.println("");
+	    	System.out.print("What are the previous doctor's you have visited (Use commas to separate names): ");
+	    	previousDoctors = reader.nextLine();
 
 	    	System.out.println("");
 	    	System.out.print("What is your home address: ");
@@ -165,7 +171,8 @@ public class WelcomeDoctor {
 	    	FileWriter writer = new FileWriter(newPatient.getPath());
 	    	String patientOutput = fullName + "'s Medical Information\n{\n";
 
-	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Address:\n" + address + ", " + city + " " + state + " " + zipCode + "\n" + 
+	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Doctor's Previously Seen:\n" + previousDoctors + "\n" + "Address:\n" + 
+	    						address + ", " + city + " " + state + " " + zipCode + "\n" + 
 	    						"Phone Number:\n" + phoneNumber + "\n" + "SSN:\n" + socialSecurity + "\n" + "Gender:\n" + gender + "\n" + 
 	    							"Birthday:\n" + birthDate + "\n" + "Email:\n" + email + "\n" + "Emergency Contact:\n" + emergencyContactName + 
 	    								"\n" + "Emergency Contact Number:\n" + emergencyPhoneNumber + "\n" + "Insurance Comapany Name:\n" + 

@@ -11,80 +11,36 @@ import java.io.*;
 public class HistoryDoctor {
 	
 	Scanner reader = new Scanner(System.in);
+	ArrayList<String> list = new ArrayList<String>();
 	String fullName;
-	String address;
-	String city;
-	String state;
-	String zipCode;
 	String phoneNumber;
-	String socialSecurity;
 	String gender;
-	String birthDate;
 	String email;
 	String rootDir;
-	String emergencyContactName;
-	String emergencyPhoneNumber;
-	String insuranceCompanyName;
-	String insuranceIDNumber;
-	String insuranceGroupNumber;
-	String insurancePhoneNumber;
-	int allergyCount;
-	int medCount;
+	String university;
+	String study;
+	String years;
+	String languages;
+	String specialties;
+	String statement;
 
     public void buildProfile()
     {
   
     	try
     	{
-	    	ArrayList<String> allergyList = new ArrayList<String>();
-	    	ArrayList<String> medList = new ArrayList<String>();
-	    	String arlist;
-
-
 	    	System.out.println("");
-	    	System.out.println("We just need some basic patient information for our medical records");
+	    	System.out.println("Hello Doctor, here we will build your personal profile for patients/doctors to view");
 	    	System.out.println("");
 	    	System.out.print("What is your legal Full Name: ");
 	    	fullName = reader.nextLine();
 
-	    	File newPatient = new File(rootDir, (fullName + ".txt"));
+	    	File newDoctor = new File(rootDir, (fullName + ".txt"));
 
-	    	if(newPatient.exists())
-	    		newPatient.delete();
+	    	if(newDoctor.exists())
+	    		newDoctor.delete();
 
-	    	newPatient.createNewFile();
-
-	    	System.out.println("");
-	    	System.out.print("What is your home address: ");
-	    	address = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is the city you live in: ");
-	    	city = reader.nextLine();
-
-			System.out.println("");
-	    	System.out.print("What is the state you live in: ");
-	    	state = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is your zipcode: ");
-	    	zipCode = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is your birthday: ");
-	    	birthDate = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is your email: ");
-	    	email = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is your phone number (i.e. ###-###-####): ");
-	    	phoneNumber = reader.nextLine();
-
-	    	System.out.println("");
-	    	System.out.print("What is your social security (SSN#): ");
-	    	socialSecurity = reader.nextLine();
+	    	newDoctor.createNewFile();
 
 	    	System.out.println("");
 	    	System.out.print("What is your gender? (Choose one of the following): ");
@@ -106,93 +62,46 @@ public class HistoryDoctor {
 	    		gender = "Prefer not to say";
 
 	    	System.out.println("");
-	    	System.out.print("What is your emergency contact's full name?: ");
-	    	emergencyContactName = reader.nextLine();
+	    	System.out.print("What is your work email: ");
+	    	email = reader.nextLine();
 
 	    	System.out.println("");
-	    	System.out.print("What is your emergency contact's phone number? (i.e. ###-###-####): ");
-	    	emergencyPhoneNumber = reader.nextLine();
+	    	System.out.print("What is your work phone number (i.e. ###-###-####): ");
+	    	phoneNumber = reader.nextLine();
 
 	    	System.out.println("");
-	    	System.out.print("What is your insurance company's name?: ");
-	    	insuranceCompanyName = reader.nextLine();
+	    	System.out.print("What is the most recent place of education you attended: ");
+	    	university = reader.nextLine();
 
 	    	System.out.println("");
-	    	System.out.print("What is the ID number on your insurance card?: ");
-	    	insuranceIDNumber = reader.nextLine();
+	    	System.out.print("What is field of study you specialized or studied in at this location: ");
+	    	study = reader.nextLine();
 
 	    	System.out.println("");
-	    	System.out.print("What is the group number on your insurance card?: ");
-	    	insuranceGroupNumber = reader.nextLine();
-
-			System.out.println("");
-	    	System.out.print("What is the phone number on your insurance card?: ");
-	    	insurancePhoneNumber = reader.nextLine();
+	    	System.out.print("What years did you attend this higher education location: ");
+	    	years = reader.nextLine();
 
 	    	System.out.println("");
-	    	System.out.print("How many different types of allergies do you have? (Enter number): ");
-	    	allergyCount = reader.nextInt();
-
-	    	if(allergyCount != 0){
-
-		    	for (int i = 1; i <= allergyCount; i++) {
-		    		
-		    		System.out.println("");
-		    		System.out.print("List your allergy (" + i + "): ");
-		    		arlist = reader.next();
-		    		allergyList.add(arlist);
-
-		    	}
-	    	}
+	    	System.out.print("What other languages do you speak besides English (Use commas to separate entries): ");
+	    	languages = reader.nextLine();
 
 	    	System.out.println("");
-	    	arlist = "";
-	    	System.out.print("How many different types of medications do you have? (Enter number): ");
-	    	medCount = reader.nextInt();
+	    	System.out.print("What field/skills do you specialize in (Use commas to separate entries): ");
+	    	specialties = reader.nextLine();
 
-	    	if(medCount != 0){
+	    	System.out.println("");
+	    	System.out.print("Write a short professional statement (Use periods and hit enter when finished): ");
+	    	statement = reader.nextLine();
 
-		    	for (int i = 1; i <= medCount; i++) {
-		    		
-		    		System.out.println("");
-		    		System.out.print("List your medications (" + i + "): ");
-		    		arlist = reader.next();
-		    		medList.add(arlist);
+	    	
+	    	FileWriter writer = new FileWriter(newDoctor.getPath());
+	    	String patientOutput = "Dr. " + fullName + "'s Doctoral Profile\n{\n";
 
-		    	}
-	    	}
-
-	    	FileWriter writer = new FileWriter(newPatient.getPath());
-	    	String patientOutput = fullName + "'s Medical Information\n{\n";
-
-	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Address:\n" + address + ", " + city + " " + state + " " + zipCode + "\n" + 
-	    						"Phone Number:\n" + phoneNumber + "\n" + "SSN:\n" + socialSecurity + "\n" + "Gender:\n" + gender + "\n" + 
-	    							"Birthday:\n" + birthDate + "\n" + "Email:\n" + email + "\n" + "Emergency Contact:\n" + emergencyContactName + 
-	    								"\n" + "Emergency Contact Number:\n" + emergencyPhoneNumber + "\n" + "Insurance Comapany Name:\n" + 
-	    									insuranceCompanyName + "\n" + "Insurance ID:\n" + insuranceIDNumber + "\n" + "Insurance Group:\n" + 
-	    										insuranceGroupNumber + "\n" + "Insurance Phone Number:\n" + insurancePhoneNumber;
-
-			if(allergyCount != 0){
-				patientOutput += "\nAllergies:\n";
-		    	for(int i = 0; i < allergyList.size(); i++){
-
-		    		if(i == 0)
-		    			patientOutput += allergyList.get(i);
-		    		else
-		    			patientOutput += ", " + allergyList.get(i);
-		    	}
-	    	}
-
-	    	if(medCount != 0){
-				patientOutput += "\nMedications:\n";
-		    	for(int i = 0; i < medList.size(); i++){
-
-		    		if(i == 0)
-		    			patientOutput += medList.get(i);
-		    		else
-		    			patientOutput += ", " + medList.get(i);
-		    	}
-	    	}
+	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Gender:\n" + gender + "\n" + "Work Email:\n" + email + "\n" + 
+	    						"Work Phone Number:\n"  + phoneNumber + "\n" + "Most Recent Higher Education Location:\n" + university +
+	    							"\n" + "Field of Study:\n" + study + "\n" + "Years Attended:\n" + years + "\n" + "Languages spoken:\n" + 
+	    								languages + "\n" + "Current specialties/skills:\n" + specialties + "\n" + "Professional Statement:\n" + 
+	    									statement;
 
 	    	patientOutput += "\n}";
             writer.write(patientOutput);
@@ -202,6 +111,29 @@ public class HistoryDoctor {
 	    	e.printStackTrace();
 	    }
 
+    }
+
+    public void pastDoctorsVisted(ArrayList<String> patientInfo)
+    {
+    	list = patientInfo;
+    	Scanner reader = new Scanner(System.in);
+    	Boolean prevMeds = list.contains("Doctor's Previously Seen:");
+
+    	if(prevMeds == true){
+    		int index = list.indexOf("Doctor's Previously Seen:") + 1;
+    		System.out.println(list.get(index));
+    	}
+    	else
+    		System.out.println("No previous doctors found");
+    }
+
+    public void chooseDoctor(ArrayList<String> patientInfo)
+    {
+    	list = patientInfo;
+    }
+    public void chosenDoctor(ArrayList<String> patientInfo)
+    {
+    	list = patientInfo;
     }
 
     public void homeDirectory(String dir)
