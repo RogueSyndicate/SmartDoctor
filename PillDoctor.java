@@ -25,11 +25,11 @@ public class PillDoctor {
     	//ArrayList<String> temp = new ArrayList<String>();
     	String arlist = "";
 
-    	Boolean prevMeds = list.contains("Medications: ");
+    	Boolean prevMeds = list.contains("Medications:");
 
     	if(prevMeds == true){
 
-    		index = list.indexOf("Medications: ") + 1;    	
+    		index = list.indexOf("Medications:") + 1;    	
 
 	    	System.out.println("");
 	    	System.out.print("How many new medications do you want to prescribe? (Enter number): ");
@@ -51,9 +51,9 @@ public class PillDoctor {
     	}
     	else{
     		list.remove(list.size()-1);
-    		list.add("Medications: ");
+    		list.add("Medications:");
     		list.add("");
-    		index = list.indexOf("Medications: ") + 1;
+    		index = list.indexOf("Medications:") + 1;
 
     		System.out.println("");
 	    	System.out.print("How many new medications do you want to prescribe? (Enter number): ");
@@ -77,15 +77,13 @@ public class PillDoctor {
 
 
     }
-    /*public void currentMeds(ArrayList<String> patientInfo){
+    public void currentMeds(ArrayList<String> patientInfo){
+
     	list = patientInfo;
 
-    	Boolean prevMeds = list.contains("Medications: ");
-
-    	if(prevMeds == true){
-
-    		int i = list.indexOf("Medications: ")
-    		System.out.println("Current Medications taken by Patient: " + list.get(i+1));
-    	}
-    }*/
+		int i = list.indexOf("Medications:");
+		System.out.println("");
+		System.out.println("Current Medications taken by Patient: " + list.get(i+1));
+    	
+    }
 } 
