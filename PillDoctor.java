@@ -50,10 +50,12 @@ public class PillDoctor {
 	    	sendInfo.outputToFile(list);
     	}
     	else{
-    		list.remove(list.size()-1);
-    		list.add("Medications:");
-    		list.add("");
-    		index = list.indexOf("Medications:") + 1;
+    		if(list.indexOf("Allergies") != -1)
+    			index = list.indexOf("Allergies:") + 2;
+    		else
+    			index = list.indexOf("Insurance Phone Number:") + 2;
+
+    		list.add(index, "Medications:");
 
     		System.out.println("");
 	    	System.out.print("How many new medications do you want to prescribe? (Enter number): ");
@@ -63,15 +65,20 @@ public class PillDoctor {
 
 		    	for (int i = 1; i <= medCount; i++) {
 		    		
-		    		System.out.println("");
-	    			System.out.print("List the medication (" + i + ") you want to prescribe: ");
-	    			arlist += (", " + reader.next());
-	    		
+		    		if(i == 1){
+			    		System.out.println("");
+		    			System.out.print("List the medication (" + i + ") you want to prescribe: ");
+		    			arlist += reader.next();
+	    			}
+	    			else{
+			    		System.out.println("");
+		    			System.out.print("List the medication (" + i + ") you want to prescribe: ");
+		    			arlist += (", " + reader.next());
+	    			}
 		    	}
 	    	}
 
-    		list.add("\n}");
-    		list.set(index, list.get(index) + arlist);
+    		list.add(index+1, arlist);
     		sendInfo.outputToFile(list);
     	}
 
@@ -84,6 +91,79 @@ public class PillDoctor {
 		int i = list.indexOf("Medications:");
 		System.out.println("");
 		System.out.println("Current Medications taken by Patient: " + list.get(i+1));
+    	
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void addAllergies(ArrayList<String> patientInfo){
+    	Scanner reader = new Scanner(System.in);
+    	SmartDoctor sendInfo = new SmartDoctor();
+    	list = patientInfo;
+    	int index;
+    	int allergyCount;
+    	String arlist = "";
+
+    	Boolean prevMeds = list.contains("Allergies:");
+
+    	if(prevMeds == true){
+
+    		index = list.indexOf("Allergies:") + 1;    	
+
+	    	System.out.println("");
+	    	System.out.print("How many new Allergies do you want to add to patient file? (Enter number): ");
+	    	allergyCount = reader.nextInt();
+
+	    	if(allergyCount != 0){
+
+		    	for (int i = 1; i <= allergyCount; i++) {
+		    		
+		    		System.out.println("");
+	    			System.out.print("List the allergy (" + i + ") you want to add: ");
+	    			arlist += (", " + reader.next());
+	    		
+		    	}
+	    	}
+
+	    	list.set(index, list.get(index) + arlist);
+	    	sendInfo.outputToFile(list);
+    	}
+    	else{
+    		index = list.indexOf("Insurance Phone Number:") + 2;
+    		list.add(index, "Allergies:");
+
+    		System.out.println("");
+	    	System.out.print("How many new Allergies do you want to add to patient file? (Enter number): ");
+	    	allergyCount = reader.nextInt();
+
+	    	if(allergyCount != 0){
+
+		    	for (int i = 1; i <= allergyCount; i++) {
+		    		
+		    		if(i == 1){
+			    		System.out.println("");
+		    			System.out.print("List the allergy (" + i + ") you want to add: ");
+		    			arlist += reader.next();
+	    			}
+	    			else{
+			    		System.out.println("");
+		    			System.out.print("List the allergy (" + i + ") you want to add: ");
+		    			arlist += (", " + reader.next());
+	    			}
+		    	}
+	    	}
+
+    		list.add(index+1, arlist);
+    		sendInfo.outputToFile(list);
+    	}
+
+
+    }
+    public void currentAllergies(ArrayList<String> patientInfo){
+
+    	list = patientInfo;
+
+		int i = list.indexOf("Allergies:");
+		System.out.println("");
+		System.out.println("Current Allergies that Patient has: " + list.get(i+1));
     	
     }
 } 

@@ -10,6 +10,7 @@ import java.io.*;
 public class SmartDoctor {
 	static String rootDir = "";
 	static String patientType = "LOOP";
+	static String doctorType = "LOOP";
     static String patientName;
 	static ArrayList<String> list = new ArrayList<String>();
 	static Scanner reader = new Scanner(System.in);
@@ -58,11 +59,25 @@ public class SmartDoctor {
     	{
     		System.out.println("Welcome to the Doctor's Hub");
 
+    		while(!doctorType.equals("new") && !doctorType.equals("existing") && !doctorType.equals("n") && !doctorType.equals("e")){
+		    	System.out.println("Are you a New (N) or Existing (E) doctor?");
+		    	doctorType = reader.nextLine();
+		    	doctorType = doctorType.toLowerCase();
+	    	}
+
+    		if(doctorType.equals("new") || doctorType.equals("n")){
+	    		pastInfo.buildProfile();
+	    		System.out.println();
+		    	System.out.println("Now that your Doctor's profile has been saved, here are the commands available to you: ");
+	    	}
+
     		while(true){
 		    	System.out.println();
 		    	System.out.println("1 - Pull up a specific Patient's Info");
 		    	System.out.println("2 - Prescribe meds to patient (Pull up patient info first)");
 		    	System.out.println("3 - View current medications for patient (Pull up patient info first)");
+		    	System.out.println("4 - Add new allergies to patient file (Pull up patient info first)");
+		    	System.out.println("5 - View current allergies for patient (Pull up patient info first)");
 		    	System.out.print("Doctor commands (Pick a number from the list above or -1 to quit): ");
 		    	doctorCommand = reader.nextInt();
 	    	
@@ -75,6 +90,12 @@ public class SmartDoctor {
 		    	}
 		    	else if(doctorCommand == 3){
 		    		medInfo.currentMeds(list);
+		    	}
+		    	else if(doctorCommand == 4){
+		    		medInfo.addAllergies(list);
+		    	}
+		    	else if(doctorCommand == 5){
+		    		medInfo.currentAllergies(list);
 		    	}
 		    	else if(doctorCommand == -1){
 		    		break;
