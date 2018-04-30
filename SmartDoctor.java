@@ -13,6 +13,7 @@ public class SmartDoctor {
 	static String doctorType = "LOOP";
     static String patientName;
     static String doctorName;
+    static String reportFile;
 	static ArrayList<String> list = new ArrayList<String>();
 	static Scanner reader = new Scanner(System.in);
 	static Scanner reader2 = new Scanner(System.in);
@@ -107,6 +108,7 @@ public class SmartDoctor {
 		    	System.out.println("4 - Add new allergies to patient file");
 		    	System.out.println("5 - View current allergies for patient");
 		    	System.out.println("6 - View your medical profile");
+		    	System.out.println("7 - Create report");
 		    	System.out.print("Doctor commands (Pick a number from the list above or -1 to quit): ");
 		    	doctorCommand = reader.nextInt();
 	    	
@@ -132,6 +134,9 @@ public class SmartDoctor {
 		    	}
 		    	else if(doctorCommand == 6){
 		    		retrieveDoctorInfo();
+		    	}
+		    	else if(doctorCommand == 7){
+		    		createReport();
 		    	}
 		    	else if(doctorCommand == -1){
 		    		break;
@@ -241,6 +246,53 @@ public class SmartDoctor {
 		catch(IOException e){
 	    	e.printStackTrace();
 	    }
+    }
 
+    public static void createReport(){
+    	try{
+    		System.out.println();
+    		System.out.println("Enter file name?");
+    		reportFile = reader2.nextLine();
+    		Scanner fileReader = new Scanner(new File(rootDir, "template.html"));//Implement a check to make sure the patient file exists
+    		list = new ArrayList<String>();
+    		while(fileReader.hasNextLine()){
+    			list.add(fileReader.nextLine());
+    		}
+    		fileReader.close();
+    		File newReport = new File(rootDir, (reportFile + ".html"));
+    		BufferedWriter writeToFile = new BufferedWriter(new FileWriter(newReport.getPath()));
+    		if(newReport.exists())
+	    		newReport.delete();
+
+	    	newReport.createNewFile();
+
+	    	FileWriter writer = new FileWriter(newReport.getPath());
+
+	    	String htmlFile = "";
+	    	for(int count = 0; count < list.size(); count++){
+	    		if(count == 0)
+	    			htmlFile += list.get(count);
+	    		else
+	    			htmlFile += "\n" + list.get(count);
+	    	}
+	    	System.out.println();
+
+			String endtable = "\n</table>";
+			String endBody = "\n</body>";
+			String endHTML = "\n</html>";
+			String startRow = "<tr>";
+			String startDef = "<td>";
+			String endDef = "</td>";
+			String endRow = "</tr>";
+
+
+
+			htmlFile += endtable + endBody + endHTML;
+	    	writer.write(htmlFile);
+			writer.close();
+    	}
+	    catch(IOException e){
+	    	e.printStackTrace();
+	    }
     }
 } 
