@@ -1,33 +1,35 @@
 /*
-    Group Number:
-    Group Members: Hemil Patel, ....
+    Group Number: 10
+    Group Members: Robert Reilly, Hemil Patel, Dharmendra Sindha, Kiran Patel
 */
 
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
-//Class will handle and retrieve information regarding medication and their details such as their primary effects, side effects, etc.
+//Class will handle and retrieve information regarding medication and allergies
 public class PillDoctor {
+	//Initialize objects and declare variables
 	String rootDir;
 	ArrayList<String> list = new ArrayList<String>();
 
+	//set the root directory for the SmartDoctor folder in this class to reference
     public void homeDirectory(String dir){
     	rootDir = dir;
     }
 
+    //When the doctor wants to add more medication to the patient's file this method will invoked
     public void prescribeMeds(ArrayList<String> patientInfo){
     	Scanner reader = new Scanner(System.in);
     	SmartDoctor sendInfo = new SmartDoctor();
-    	list = patientInfo;
+    	list = patientInfo; //set patient info to list in this class for all methods to access
     	int index;
     	int medCount;
-    	//ArrayList<String> temp = new ArrayList<String>();
     	String arlist = "";
 
-    	Boolean prevMeds = list.contains("Medications:");
+    	Boolean prevMeds = list.contains("Medications:"); //checks if medications exist
 
-    	if(prevMeds == true){
+    	if(prevMeds == true){//if medications exist then add into the list
 
     		index = list.indexOf("Medications:") + 1;    	
 
@@ -49,7 +51,7 @@ public class PillDoctor {
 	    	list.set(index, list.get(index) + arlist);
 	    	sendInfo.outputToFile(list);
     	}
-    	else{
+    	else{//if medications weren't specified then we will add a new section into the patient file to faciliatate that
     		if(list.indexOf("Allergies") != -1)
     			index = list.indexOf("Allergies:") + 2;
     		else
@@ -84,6 +86,7 @@ public class PillDoctor {
 
 
     }
+    //this method is called when patient or doctor want to view the current medications a patient is taking
     public void currentMeds(ArrayList<String> patientInfo){
 
     	list = patientInfo;
@@ -93,18 +96,18 @@ public class PillDoctor {
 		System.out.println("Current Medications taken by Patient: " + list.get(i+1));
     	
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //When the doctor wants to add more allergies to the patient's file this method will invoked
     public void addAllergies(ArrayList<String> patientInfo){
     	Scanner reader = new Scanner(System.in);
     	SmartDoctor sendInfo = new SmartDoctor();
-    	list = patientInfo;
+    	list = patientInfo;//set patient info to list in this class for all methods to access
     	int index;
     	int allergyCount;
     	String arlist = "";
 
-    	Boolean prevMeds = list.contains("Allergies:");
+    	Boolean prevMeds = list.contains("Allergies:");//checks if Allergies exist
 
-    	if(prevMeds == true){
+    	if(prevMeds == true){//if Allergies exist then add into the list
 
     		index = list.indexOf("Allergies:") + 1;    	
 
@@ -126,7 +129,7 @@ public class PillDoctor {
 	    	list.set(index, list.get(index) + arlist);
 	    	sendInfo.outputToFile(list);
     	}
-    	else{
+    	else{//if Allergies weren't specified then we will add a new section into the patient file to faciliatate that
     		index = list.indexOf("Insurance Phone Number:") + 2;
     		list.add(index, "Allergies:");
 
@@ -157,6 +160,7 @@ public class PillDoctor {
 
 
     }
+    //this method is called when patient or doctor want to view the current Allergies a patient has
     public void currentAllergies(ArrayList<String> patientInfo){
 
     	list = patientInfo;
