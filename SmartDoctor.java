@@ -15,6 +15,7 @@ public class SmartDoctor {
     static String doctorName;
     static String reportFile;
 	static ArrayList<String> list = new ArrayList<String>();
+	static ArrayList<String> list2 = new ArrayList<String>();
 	static Scanner reader = new Scanner(System.in);
 	static Scanner reader2 = new Scanner(System.in);
 	static String type;
@@ -285,8 +286,68 @@ public class SmartDoctor {
 			String endDef = "</td>";
 			String endRow = "</tr>";
 
+			File folder = new File(rootDir);
+			File[] listOfFiles = folder.listFiles();
+
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].exists()) {
+
+					String checker = "break";
+		    		Scanner fileReader2 = new Scanner(new File(rootDir, listOfFiles[i].getName()));
+		    		list2 = new ArrayList<String>();
+		    		while(fileReader2.hasNextLine()){
+		    			list2.add(fileReader2.nextLine());
+		    		}
+		    		fileReader2.close();
+		    		if(!list2.isEmpty()){
+		    			checker = list2.get(0);
+		    		}
+		    		if(!checker.contains("Information")){
+		    			continue;
+		    		}
+
+		    		int tempIndex = -1;
+
+		    		htmlFile += "\n" + startRow;
+		    		tempIndex = list2.indexOf("Full Name:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Address:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Phone Number:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("SSN:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Gender:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Birthday:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Email:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Allergies:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Medications:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Emergency Contact:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Emergency Contact Number:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Insurance Comapany Name:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Insurance ID:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Insurance Group:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+		    		tempIndex = list2.indexOf("Insurance Phone Number:") + 1;
+		    		htmlFile += "\n" + startDef + list2.get(tempIndex) + endDef;
+
+		    		htmlFile += "\n" + endRow;
+				}
+				else
+					System.out.println("Unknown File ");
+			}
 
 
+			//htmlFile += endtable + endBody + endHTML;
 			htmlFile += endtable + endBody + endHTML;
 	    	writer.write(htmlFile);
 			writer.close();
