@@ -150,6 +150,9 @@ public class WelcomeDoctor {
 
 		    	}
 	    	}
+	    	if(allergyCount == 0){
+	    		allergyList.add("None");
+	    	}
 
 	    	System.out.println("");
 	    	arlist = "";
@@ -167,6 +170,9 @@ public class WelcomeDoctor {
 
 		    	}
 	    	}
+	    	if(medCount == 0){
+	    		medList.add("None");
+	    	}
 
 	    	FileWriter writer = new FileWriter(newPatient.getPath());
 	    	String patientOutput = fullName + "'s Medical Information\n{\n";
@@ -175,7 +181,7 @@ public class WelcomeDoctor {
 	    						address + ", " + city + " " + state + " " + zipCode + "\n" + 
 	    						"Phone Number:\n" + phoneNumber + "\n" + "SSN:\n" + socialSecurity + "\n" + "Gender:\n" + gender + "\n" + 
 	    							"Birthday:\n" + birthDate + "\n" + "Email:\n" + email + "\n" + "Emergency Contact:\n" + emergencyContactName + 
-	    								"\n" + "Emergency Contact Number:\n" + emergencyPhoneNumber + "\n" + "Insurance Comapany Name:\n" + 
+	    								"\n" + "Emergency Contact Number:\n" + emergencyPhoneNumber + "\n" + "Insurance Company Name:\n" + 
 	    									insuranceCompanyName + "\n" + "Insurance ID:\n" + insuranceIDNumber + "\n" + "Insurance Group:\n" + 
 	    										insuranceGroupNumber + "\n" + "Insurance Phone Number:\n" + insurancePhoneNumber;
 
