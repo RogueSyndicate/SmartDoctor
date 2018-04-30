@@ -1,6 +1,6 @@
 /*
-    Group Number:
-    Group Members: Hemil Patel, ....
+    Group Number: 10
+    Group Members: Robert Reilly, Hemil Patel, Dharmendra Sindha, Kiran Patel
 */
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.io.*;
 
 //Class will handle welcoming/recognizing past patients
 public class WelcomeDoctor {
-
+	//Initialize objects and declare variables
 	Scanner reader = new Scanner(System.in);
 	String fullName;
 	String previousDoctors;
@@ -32,7 +32,7 @@ public class WelcomeDoctor {
 	int allergyCount;
 	int medCount;
 
-    
+    //This method is invoked when new patients enter the system and gets their personal info
     public void welcomeScreen()
     {
   
@@ -51,7 +51,7 @@ public class WelcomeDoctor {
 
 	    	File newPatient = new File(rootDir, (fullName + ".txt"));
 
-	    	if(newPatient.exists())
+	    	if(newPatient.exists())//creates the patient file based on full name
 	    		newPatient.delete();
 
 	    	newPatient.createNewFile();
@@ -139,6 +139,7 @@ public class WelcomeDoctor {
 	    	System.out.print("How many different types of allergies do you have? (Enter number): ");
 	    	allergyCount = reader.nextInt();
 
+	    	//loop gets all the allergies that the user may have and puts it into a list
 	    	if(allergyCount != 0){
 
 		    	for (int i = 1; i <= allergyCount; i++) {
@@ -150,6 +151,7 @@ public class WelcomeDoctor {
 
 		    	}
 	    	}
+	    	//if patient has no allergies then add none by default
 	    	if(allergyCount == 0){
 	    		allergyList.add("None");
 	    	}
@@ -159,6 +161,7 @@ public class WelcomeDoctor {
 	    	System.out.print("How many different types of medications do you have? (Enter number): ");
 	    	medCount = reader.nextInt();
 
+			//loop gets all the medications that the user may have and puts it into a list
 	    	if(medCount != 0){
 
 		    	for (int i = 1; i <= medCount; i++) {
@@ -170,6 +173,7 @@ public class WelcomeDoctor {
 
 		    	}
 	    	}
+	    	//if patient has no medications then add none by default
 	    	if(medCount == 0){
 	    		medList.add("None");
 	    	}
@@ -177,6 +181,7 @@ public class WelcomeDoctor {
 	    	FileWriter writer = new FileWriter(newPatient.getPath());
 	    	String patientOutput = fullName + "'s Medical Information\n{\n";
 
+	    	//Add all the personal info asked from patient into a string with the correct format
 	    	patientOutput += "Full Name:\n" + fullName + "\n" + "Doctor's Previously Seen:\n" + previousDoctors + "\n" + "Address:\n" + 
 	    						address + ", " + city + " " + state + " " + zipCode + "\n" + 
 	    						"Phone Number:\n" + phoneNumber + "\n" + "SSN:\n" + socialSecurity + "\n" + "Gender:\n" + gender + "\n" + 
@@ -185,6 +190,7 @@ public class WelcomeDoctor {
 	    									insuranceCompanyName + "\n" + "Insurance ID:\n" + insuranceIDNumber + "\n" + "Insurance Group:\n" + 
 	    										insuranceGroupNumber + "\n" + "Insurance Phone Number:\n" + insurancePhoneNumber;
 
+	    	//allergies from the list are added into the patient file
 			if(allergyCount != 0){
 				patientOutput += "\nAllergies:\n";
 		    	for(int i = 0; i < allergyList.size(); i++){
@@ -195,7 +201,7 @@ public class WelcomeDoctor {
 		    			patientOutput += ", " + allergyList.get(i);
 		    	}
 	    	}
-
+	    	//medications from the list are added into the patient file
 	    	if(medCount != 0){
 				patientOutput += "\nMedications:\n";
 		    	for(int i = 0; i < medList.size(); i++){
@@ -208,7 +214,7 @@ public class WelcomeDoctor {
 	    	}
 
 	    	patientOutput += "\n}";
-            writer.write(patientOutput);
+            writer.write(patientOutput);//write all patient info out to file
             writer.close();
 	    }
 	    catch(IOException e){
@@ -216,7 +222,7 @@ public class WelcomeDoctor {
 	    }
 
     }
-
+	//set the root directory for the SmartDoctor folder in this class to reference
     public void homeDirectory(String dir)
     {
     	rootDir = dir;
