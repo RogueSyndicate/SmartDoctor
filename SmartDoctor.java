@@ -62,8 +62,8 @@ public class SmartDoctor {
 		    	System.out.println();
 		    	System.out.println("1 - View your medical info");
 		    	System.out.println("2 - See the previous doctor's you have seen");
-		    	System.out.println("3 - Choose a doctor to be your regular doctor");
-		    	System.out.println("4 - View your regular doctor's info");
+		    	System.out.println("3 - View current medications");
+		    	System.out.println("4 - View current allergies on file");
 		    	System.out.print("Patient commands (Pick a number from the list above or -1 to quit): ");
 		    	patientCommand = reader.nextInt();
 	    	
@@ -75,10 +75,12 @@ public class SmartDoctor {
 		    		pastInfo.pastDoctorsVisted(list);
 		    	}
 		    	else if(patientCommand == 3){
-		    		pastInfo.chooseDoctor(list);
+		    		retrievePatientInfo("D");
+		    		medInfo.currentMeds(list);
 		    	}
 		    	else if(patientCommand == 4){
-		    		pastInfo.chosenDoctor(list);
+		    		retrievePatientInfo("D");
+		    		medInfo.currentAllergies(list);
 		    	}
 		    	else if(patientCommand == -1){
 		    		break;

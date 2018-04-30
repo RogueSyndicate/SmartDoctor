@@ -126,16 +126,7 @@ public class HistoryDoctor {
     	else
     		System.out.println("No previous doctors found");
     }
-
-    public void chooseDoctor(ArrayList<String> patientInfo)
-    {
-    	list = patientInfo;
-    }
-    public void chosenDoctor(ArrayList<String> patientInfo)
-    {
-    	list = patientInfo;
-    }
-
+    
     public void homeDirectory(String dir)
     {
     	rootDir = dir;
